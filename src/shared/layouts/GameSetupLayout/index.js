@@ -3,15 +3,14 @@ import PrimaryBanner from './PrimaryBanner';
 import PrimaryButton from './PrimaryButton';
 import {Container, Row, Col} from 'react-bootstrap';
 
-
-const GameSetupLayout = (centreLogo, gameButton) => {
+const GameSetupLayout = (startGame) => {    
     return (
         <Container>
             <Row>
-                <PrimaryBanner logo={centreLogo}/>     
+                <PrimaryBanner/>     
             </Row>
             <Row>
-                <PrimaryButton buttonText="Start Game"/>
+                "Game Setup"
             </Row>
         </Container>
     )

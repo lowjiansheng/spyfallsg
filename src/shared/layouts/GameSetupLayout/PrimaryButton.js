@@ -1,11 +1,12 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-const PrimaryButton = ({buttonText}) => {
+
+const PrimaryButton = ({buttonText, onClickFunction}) => {
     return (
-        <Button>
+        <button onClick={onClickFunction}>
             {buttonText}
-        </Button>
+        </button>
     )
 }
 
