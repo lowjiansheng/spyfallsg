@@ -3,43 +3,66 @@ import PrimaryBanner from '../../shared/layouts/GameSetupLayout/PrimaryBanner';
 import GameSetupLayout from '../../shared/layouts/GameSetupLayout';
 import HomePageLayout from '../../shared/layouts/HomePageLayout';
 
+import PAGE from '../../shared/constants/pages'
+
 // This is the main view for the entire game
 class HomePageView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            gameSetup : false,
-            gameStart: false,
-            homePage: true,
+            gameState: PAGE.HOME,
+            numPlayers: 4,
+            numSpies: 1,
         };
         this.startGameSetup = this.startGameSetup.bind(this);
+        this.startGame = this.startGame.bind(this);
+        this.handleNumPlayersChange = this.handleNumPlayersChange.bind(this);
+        this.handleNumSpiesChange = this.handleNumSpiesChange.bind(this);
     }
 
     startGameSetup() {
-        console.log("STARTING GAME SETUP")
         this.setState({
-            homePage: false,
-            gameSetup: true,
+            gameState: PAGE.GAME_SETUP
         })
     }
 
-    startGame() {
+    startGame(e) {
+        e.preventDefault();
         this.setState({
-            gameStart: true,
+            gameState: PAGE.GAME_START
         })
     }
 
-    render() {
-        if (this.state.homePage) {
-            return <HomePageLayout startGameSetup={this.startGameSetup}/>
-        } else if (this.state.gameSetup){
-            return <GameSetupLayout startGame={this.startGame}/>
-        } else if (this.state.gameStart){
-             return <div>Game Start</div>
-        }
+    handleNumPlayersChange(e, value){
+        this.setState({
+            numPlayers: value
+        })
         
     }
 
+    handleNumSpiesChange(e, value) {
+        this.setState({
+            numSpies: value
+        })
+    }
+
+
+    render() {
+        if (this.state.gameState === PAGE.HOME) {
+            return <HomePageLayout startGameSetup={this.startGameSetup}/>
+        } else if (this.state.gameState === PAGE.GAME_SETUP){
+            return <GameSetupLayout 
+            startGame={this.startGame} 
+            numPlayers={this.state.numPlayers}
+            numSpies={this.state.numSpies}
+            handleNumPlayersChange={this.handleNumPlayersChange}
+            handleNumSpiesChange={this.handleNumSpiesChange}/>
+        } else if (this.state.gameState === PAGE.GAME_START){
+             return (
+                 <div>Game Start with {this.state.numPlayers} players and {this.state.numSpies} spy</div>
+             )
+        }
+    }
 }
 
 export default HomePageView;

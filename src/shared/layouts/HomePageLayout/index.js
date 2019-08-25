@@ -1,14 +1,15 @@
 import React from 'react';
-import { Row, Container } from 'react-bootstrap';
+import { Row, Container, Button } from 'react-bootstrap';
+import PrimaryBanner from '../GameSetupLayout/PrimaryBanner';
 
 const HomePageLayout = ({startGameSetup}) => {
     return (
         <Container>
             <Row>
-                <p>Majulah Spy</p>
+                <PrimaryBanner/>
             </Row>
             <Row>
-                <button onClick={startGameSetup}>Start Game</button>
+                <Button variant="light" onClick={startGameSetup}>Start Game</Button>
             </Row>
         </Container>
     )

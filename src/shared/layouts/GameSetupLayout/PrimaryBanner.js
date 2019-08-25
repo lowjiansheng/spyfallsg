@@ -2,7 +2,9 @@ import React from 'react';
 
 const PrimaryBanner = (logo) => {
     return (
-        "Majulah Spy!"
+        <h1>
+            Majulah Spy!
+        </h1>
     )
 }
 
