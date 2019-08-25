@@ -5,7 +5,7 @@ import {Container, Row, Col} from 'react-bootstrap';
 import GameSetupForm from './GameSetupForm';
 
 
-const GameSetupLayout = ({startGame, numPlayers, numSpies, handleNumPlayersChange, handleNumSpiesChange}) => {    
+const GameSetupLayout = ({startGame, numPlayers, numSpies, maxSpies, handleNumPlayersChange, handleNumSpiesChange}) => {    
     return (
         <Container>
             <Row>
@@ -16,6 +16,7 @@ const GameSetupLayout = ({startGame, numPlayers, numSpies, handleNumPlayersChang
                     startGame={startGame} 
                     numPlayers={numPlayers}
                     numSpies={numSpies}
+                    maxSpies={maxSpies}
                     handleNumPlayersChange={handleNumPlayersChange}
                     handleNumSpiesChange={handleNumSpiesChange}/>
             </Row>

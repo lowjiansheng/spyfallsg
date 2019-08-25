@@ -13,6 +13,7 @@ class HomePageView extends Component {
             gameState: PAGE.HOME,
             numPlayers: 4,
             numSpies: 1,
+            maxSpies: 4,    // max spies cannot exceed num players
         };
         this.startGameSetup = this.startGameSetup.bind(this);
         this.startGame = this.startGame.bind(this);
@@ -35,7 +36,8 @@ class HomePageView extends Component {
 
     handleNumPlayersChange(e, value){
         this.setState({
-            numPlayers: value
+            numPlayers: value,
+            maxSpies: value
         })
         
     }
@@ -55,6 +57,7 @@ class HomePageView extends Component {
             startGame={this.startGame} 
             numPlayers={this.state.numPlayers}
             numSpies={this.state.numSpies}
+            maxSpies={this.state.maxSpies}
             handleNumPlayersChange={this.handleNumPlayersChange}
             handleNumSpiesChange={this.handleNumSpiesChange}/>
         } else if (this.state.gameState === PAGE.GAME_START){

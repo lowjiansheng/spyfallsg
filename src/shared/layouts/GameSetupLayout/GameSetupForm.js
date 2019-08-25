@@ -4,7 +4,7 @@ import Slider from '@material-ui/core/Slider';
 import { Component } from 'react';
 
 
-const GameSetupForm = ({startGame, numPlayers, numSpies, handleNumPlayersChange, handleNumSpiesChange}) => {
+const GameSetupForm = ({startGame, numPlayers, numSpies, maxSpies, handleNumPlayersChange, handleNumSpiesChange}) => {
     return (
         <Form onSubmit={startGame}>
             <Form.Group>
@@ -31,7 +31,7 @@ const GameSetupForm = ({startGame, numPlayers, numSpies, handleNumPlayersChange,
                         step={1}
                         marks
                         min={1}
-                        max={14}/>
+                        max={maxSpies}/>
             </Form.Group>
             <Form.Group>
             <Button type="submit">Start game!</Button>
