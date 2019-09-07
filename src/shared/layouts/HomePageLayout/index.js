@@ -4,9 +4,12 @@ import PrimaryBanner from '../GameSetupLayout/PrimaryBanner';
 
 const HomePageLayout = ({startGameSetup}) => {
     return (
-        <Container>
+        <Container style={{
+            position: 'absolute', left: '50%', top: '50%',
+            transform: 'translate(-10%, -50%)'
+        }}>
             <Row>
-                <PrimaryBanner/>
+                <PrimaryBanner />
             </Row>
             <Row>
                 <Button variant="light" onClick={startGameSetup}>Start Game</Button>
