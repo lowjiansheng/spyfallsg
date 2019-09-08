@@ -46,6 +46,7 @@ class ClickableCard extends Component {
         this.setState({
             cardState: cardStates.Done
         })
+        this.props.setPlayerDoneSettingUp();
     }
 
     // First let the user click the card, then allow for input. 

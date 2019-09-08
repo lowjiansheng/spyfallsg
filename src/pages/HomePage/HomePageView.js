@@ -48,8 +48,7 @@ class HomePageView extends Component {
         this.setState({
             numPlayers: value,
             maxSpies: value
-        })
-        
+        })   
     }
 
     handleNumSpiesChange(e, value) {

@@ -9,8 +9,10 @@ class GameStartLayout extends Component {
             gameSettings: props.gameSettings,
             gameReady: false,
             players: [],
+            numPlayersDone: 0 // track how many players have finished setting up
         }
         this.setPlayerName = this.setPlayerName.bind(this);
+        this.setPlayerDoneSettingUp = this.setPlayerDoneSettingUp.bind(this);
     }
 
     setPlayerName(playerIndex, playerName) {
@@ -29,10 +31,25 @@ class GameStartLayout extends Component {
         })
     }
 
+    setPlayerDoneSettingUp(playerIndex) {
+        if (this.state.numPlayersDone + 1 === this.state.gameSettings.numPlayers) {
+            this.setState({
+                gameReady: true
+            })
+        } else {
+            this.setState({
+                numPlayersDone: this.state.numPlayersDone + 1
+            })
+        }
+    }
+
     render() {
         if (this.state.gameReady){
             return <div>Game in progress</div>
-        } else return <PlayerSetupLayout gameSettings={this.state.gameSettings} setPlayerName={this.setPlayerName}/>
+        } else return <PlayerSetupLayout 
+            gameSettings={this.state.gameSettings} 
+            setPlayerName={this.setPlayerName}
+            setPlayerDoneSettingUp={this.setPlayerDoneSettingUp}/>
     }
 
 }
