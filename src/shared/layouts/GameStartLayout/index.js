@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import  PlayerSetupLayout  from './PlayerSetupLayout';
-
+import  GameFlowLayout from './GameFlowLayout';
 
 class GameStartLayout extends Component {
     constructor(props) {
@@ -45,7 +45,7 @@ class GameStartLayout extends Component {
 
     render() {
         if (this.state.gameReady){
-            return <div>Game in progress</div>
+            return <GameFlowLayout/>
         } else return <PlayerSetupLayout 
             gameSettings={this.state.gameSettings} 
             setPlayerName={this.setPlayerName}
