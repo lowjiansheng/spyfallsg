@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import gameState from '../../constants/gameStates';
 import CommunicateLayout from './CommunicateLayout';
+import VotingLayout from './VotingLayout';
 
 class GameFlowLayout extends Component{
     constructor(props) {
@@ -9,6 +10,8 @@ class GameFlowLayout extends Component{
             gameState: gameState.Communicate
         }
         this.communicationEnds = this.communicationEnds.bind(this);
+        this.handlePlayerChoiceChange = this.handlePlayerChoiceChange.bind(this);
+        this.handleSpyLocationChoice = this.handleSpyLocationChoice.bind(this);
     }
 
     communicationEnds() {
@@ -22,14 +25,24 @@ class GameFlowLayout extends Component{
         // Logic for end game. If both 
     }
 
+    handlePlayerChoiceChange(event) {
+        
+    }
+
+    handleSpyLocationChoice(event) {
+
+    }
+
     render() {
         switch (this.state.gameState) {
             case gameState.Communicate:
                 return <CommunicateLayout communicationEnds={this.communicationEnds}/>
 
             case gameState.Vote:
-                return <p>Time to vote!</p>
-
+                return <VotingLayout 
+                    players={this.props.players} 
+                    handlePlayerChoiceChange={this.handlePlayerChoiceChange}
+                    handleSpyLocationChoice={this.handleSpyLocationChoice}/>
             default:
                 return 
         }        

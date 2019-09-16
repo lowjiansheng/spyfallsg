@@ -45,7 +45,8 @@ class GameStartLayout extends Component {
 
     render() {
         if (this.state.gameReady){
-            return <GameFlowLayout/>
+            return <GameFlowLayout
+                players={this.state.players}/>
         } else return <PlayerSetupLayout 
             gameSettings={this.state.gameSettings} 
             setPlayerName={this.setPlayerName}
