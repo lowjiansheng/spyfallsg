@@ -7,11 +7,14 @@ class GameFlowLayout extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            gameState: gameState.Communicate
+            gameState: gameState.Communicate,
+            playerIndexToVote: 0,
+            playerVotes: new Array(this.props.players.length).fill(0),
         }
         this.communicationEnds = this.communicationEnds.bind(this);
         this.handlePlayerChoiceChange = this.handlePlayerChoiceChange.bind(this);
         this.handleSpyLocationChoice = this.handleSpyLocationChoice.bind(this);
+        this.handlePlayersDoneVoting = this.handlePlayersDoneVoting.bind(this);
     }
 
     communicationEnds() {
@@ -26,11 +29,25 @@ class GameFlowLayout extends Component{
     }
 
     handlePlayerChoiceChange(event) {
-        
+        event.preventDefault();
+        var playerVotesTemp = this.state.playerVotes;
+        playerVotesTemp[event.target] += 1;
+        this.setState({
+            playerIndexToVote: this.state.playerIndexToVote + 1,
+            playerVotes: playerVotesTemp,
+        })
     }
 
     handleSpyLocationChoice(event) {
+        event.preventDefault();
+        this.setState({
+            playerIndexToVote: this.state.playerIndexToVote + 1,
+        })
+    }
 
+    handlePlayersDoneVoting() {
+        // Tally results and see if spy has been caught.
+        console.log("Voting ended!");
     }
 
     render() {
@@ -41,8 +58,10 @@ class GameFlowLayout extends Component{
             case gameState.Vote:
                 return <VotingLayout 
                     players={this.props.players} 
+                    playerIndexToVote={this.state.playerIndexToVote}
                     handlePlayerChoiceChange={this.handlePlayerChoiceChange}
-                    handleSpyLocationChoice={this.handleSpyLocationChoice}/>
+                    handleSpyLocationChoice={this.handleSpyLocationChoice}
+                    handlePlayersDoneVoting={this.handlePlayersDoneVoting}/>
             default:
                 return 
         }        

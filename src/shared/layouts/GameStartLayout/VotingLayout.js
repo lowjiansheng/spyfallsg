@@ -3,21 +3,20 @@ import { Row, Button } from 'react-bootstrap';
 import { Container } from '@material-ui/core';
 import  LOCATIONS  from '../../constants/locations';
 
-const VotingLayout = ({players, handlePlayerChoiceChange, handleSpyLocationChoice}) => {
-    
-    // TODO: Check if each card will appear sequentially.
-    for (var playerIndex = 0; playerIndex < players.length; playerIndex++) {
-        console.log(players[playerIndex]);
-        if (players[playerIndex]['spy']){
-            return <SpyVotingLayout
-                playerName={players[playerIndex]['name']}
+const VotingLayout = ({players, playerIndexToVote, handlePlayerChoiceChange, handleSpyLocationChoice, handlePlayersDoneVoting}) => {
+    if (playerIndexToVote >= players.length) {
+        handlePlayersDoneVoting();
+        return null;
+    }
+    if (players[playerIndexToVote]['spy']) {
+        return <SpyVotingLayout
+                playerName={players[playerIndexToVote]['name']}
                 handleSpyLocationChoice={handleSpyLocationChoice}/>
-        } else {
-            return <NormalPlayerVotingLayout 
+    } else {
+        return <NormalPlayerVotingLayout 
             players={players} 
-            playerIndex={playerIndex}
+            playerIndex={playerIndexToVote}
             handlePlayerChoiceChange={handlePlayerChoiceChange}/>
-        }
     }
 }
 
@@ -48,7 +47,7 @@ const NormalPlayerVotingLayout = ({players, playerIndex, handlePlayerChoiceChang
             </Row>
             <Row>
                 {players.map(player => {
-                    return (<Button onClick={handlePlayerChoiceChange}>
+                    return (<Button onClick={handlePlayerChoiceChange} value={playerIndex}>
                         {player['name']}
                     </Button>)
                 })}
