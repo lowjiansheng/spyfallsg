@@ -14,7 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "mocha lib/**/*.test.js",
+    "test": "./node_modules/.bin/babel src --out-dir lib && mocha lib/**/*.test.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
