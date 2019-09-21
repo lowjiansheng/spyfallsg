@@ -3,18 +3,21 @@ import { Row, Button } from 'react-bootstrap';
 import { Container } from '@material-ui/core';
 import  LOCATIONS  from '../../constants/locations';
 
-const VotingLayout = ({players, playerIndexToVote, handlePlayerChoiceChange, handleSpyLocationChoice, handlePlayersDoneVoting}) => {
-    if (playerIndexToVote >= players.length) {
+const VotingLayout = ({playersInGame, playerIndexToVote, handlePlayerChoiceChange, handleSpyLocationChoice, handlePlayersDoneVoting}) => {
+    if (playerIndexToVote >= playersInGame.length) {
         handlePlayersDoneVoting();
         return null;
     }
-    if (players[playerIndexToVote]['spy']) {
+    if (!playersInGame[playerIndexToVote].inGame) {
+        return null;
+    }
+    if (playersInGame[playerIndexToVote]['spy']) {
         return <SpyVotingLayout
-                playerName={players[playerIndexToVote]['name']}
+                playerName={playersInGame[playerIndexToVote]['name']}
                 handleSpyLocationChoice={handleSpyLocationChoice}/>
     } else {
         return <NormalPlayerVotingLayout 
-            players={players} 
+            players={playersInGame} 
             playerIndex={playerIndexToVote}
             handlePlayerChoiceChange={handlePlayerChoiceChange}/>
     }
@@ -47,9 +50,14 @@ const NormalPlayerVotingLayout = ({players, playerIndex, handlePlayerChoiceChang
             </Row>
             <Row>
                 {players.map(player => {
-                    return (<Button onClick={handlePlayerChoiceChange} value={playerIndex}>
-                        {player['name']}
-                    </Button>)
+                    if (player === players[playerIndex]) {
+                        return null;
+                    } else {
+                        return (<Button onClick={handlePlayerChoiceChange} value={playerIndex}>
+                            {player['name']}
+                        </Button>)
+                    }
+                    
                 })}
             </Row>
             <Row>

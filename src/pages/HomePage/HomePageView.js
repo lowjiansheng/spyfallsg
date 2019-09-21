@@ -23,6 +23,7 @@ class HomePageView extends Component {
         this.startGame = this.startGame.bind(this);
         this.handleNumPlayersChange = this.handleNumPlayersChange.bind(this);
         this.handleNumSpiesChange = this.handleNumSpiesChange.bind(this);
+        this.handleGameEnd = this.handleGameEnd.bind(this);
     }
 
     startGameSetup() {
@@ -57,6 +58,10 @@ class HomePageView extends Component {
         })
     }
 
+    handleGameEnd() {
+        // When a single game ends. 
+    }
+
     render() {
         switch(this.state.gameState) {
             case PAGE.HOME: 
@@ -70,7 +75,9 @@ class HomePageView extends Component {
                 handleNumPlayersChange={this.handleNumPlayersChange}
                 handleNumSpiesChange={this.handleNumSpiesChange}/>
             case PAGE.GAME_START:
-                return <GameStartLayout gameSettings={this.state.gameSettings}/>
+                return <GameStartLayout 
+                gameSettings={this.state.gameSettings}
+                handleGameEnd={this.handleGameEnd}/>
         }
     }
 }
