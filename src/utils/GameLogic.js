@@ -28,9 +28,10 @@ export const removePlayerFromGame = (players, playerIndexToBeRemoved) => {
 }
 
 export const stillHasSpiesInGame = (players) => {
-    players.foreach(player => {
-        if (player.isSpy && player.inGame) {
-            return true;
-        }
+    let noSpiesLeft = players.every(player => {
+        if (player.spy && player.inGame) {
+            return false;
+        } else return true;
     })
+    return !noSpiesLeft;
 }
