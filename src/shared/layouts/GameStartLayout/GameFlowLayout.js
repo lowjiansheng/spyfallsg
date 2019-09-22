@@ -8,19 +8,11 @@ import roundEndStates from '../../constants/roundEndStates';
 class GameFlowLayout extends Component{
     constructor(props) {
         super(props);
-        var playersInGame = this.props.players.map(player => {
-            return Object.assign(player, 
-                {
-                    inGame: true,
-                    spyChosenLocation: ""   // this will only be set by a spy
-                }
-            )
-        })
         this.state = {
             gameState: gameState.Communicate,
             playerIndexToVote: 0,
             playerVotes: new Array(this.props.players.length).fill(0),  // index: user index, value: no. of times user got voted
-            playersInGame: playersInGame,
+            playersInGame: this.props.players,
         }
         this.communicationEnds = this.communicationEnds.bind(this);
         this.handlePlayerChoiceChange = this.handlePlayerChoiceChange.bind(this);
@@ -35,9 +27,9 @@ class GameFlowLayout extends Component{
         })
     }
 
-
     handlePlayerChoiceChange(event) {
         event.preventDefault();
+        console.log(event.target);
         var playerVotesTemp = this.state.playerVotes;
         playerVotesTemp[event.target] += 1;
         this.setState({

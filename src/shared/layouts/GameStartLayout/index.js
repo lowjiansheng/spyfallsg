@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import  PlayerSetupLayout  from './PlayerSetupLayout';
 import  GameFlowLayout from './GameFlowLayout';
+import { Player } from './Player';
 
 class GameStartLayout extends Component {
     constructor(props) {
@@ -20,12 +21,9 @@ class GameStartLayout extends Component {
         if (playerIndex >= spies.length) {
             return;
         }
-        var player = {
-            spy : spies.has(playerIndex),
-            name: playerName,
-        }
         var players = this.state.players;
-        players.push(player);
+        var newPlayer = new Player(players.length, playerName, spies.has(playerIndex), true, "");
+        players.push(newPlayer);
         this.setState({
             players: players
         })
