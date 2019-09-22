@@ -19,7 +19,7 @@ class GameFlowLayout extends Component{
         this.state = {
             gameState: gameState.Communicate,
             playerIndexToVote: 0,
-            playerVotes: new Array(this.props.players.length).fill(0),
+            playerVotes: new Array(this.props.players.length).fill(0),  // index: user index, value: no. of times user got voted
             playersInGame: playersInGame,
         }
         this.communicationEnds = this.communicationEnds.bind(this);
@@ -60,7 +60,7 @@ class GameFlowLayout extends Component{
     handlePlayersDoneVoting() {
         // Tally results and see if spy has been caught.
         console.log("Voting ended!");
-        var {results, playerIndexEliminated} = roundEndConclusion(this.props.players, this.state.playerVotes);
+        var {results, playerIndexEliminated} = roundEndConclusion(this.state.playersInGame, this.state.playerVotes);
 
         switch (results) {
             case roundEndStates.Tie:
