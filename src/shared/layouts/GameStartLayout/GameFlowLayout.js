@@ -61,9 +61,10 @@ class GameFlowLayout extends Component{
         // Tally results and see if spy has been caught.
         console.log("Voting ended!");
         var {results, playerIndexEliminated} = roundEndConclusion(this.state.playersInGame, this.state.playerVotes);
-
+        console.log(this.state.playerVotes);
         switch (results) {
             case roundEndStates.Tie:
+                alert("Tie round. No one was eliminated.");
                 this.setState({gameState: gameState.Communicate})
                 break;
             case roundEndStates.SpyEliminated:
