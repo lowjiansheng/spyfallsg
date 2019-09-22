@@ -3,15 +3,22 @@ import { Row, Button } from 'react-bootstrap';
 import { Container } from '@material-ui/core';
 import  LOCATIONS  from '../../constants/locations';
 
-const VotingLayout = ({playersInGame, playerIndexToVote, handlePlayerChoiceChange, handleSpyLocationChoice, handlePlayersDoneVoting}) => {
+const VotingLayout = ({playersInGame, 
+    playerIndexToVote, 
+    handlePlayerChoiceChange,
+    handleSpyLocationChoice,
+    handlePlayersDoneVoting,
+    skipPlayerForVoting}) => {
     if (playerIndexToVote >= playersInGame.length) {
         handlePlayersDoneVoting();
         return null;
     }
     if (!playersInGame[playerIndexToVote].inGame) {
+        skipPlayerForVoting();
         return null;
     }
-    if (playersInGame[playerIndexToVote]['spy']) {
+    console.log(playersInGame[playerIndexToVote].name + " isSpy: " + playersInGame[playerIndexToVote].spy);
+    if (playersInGame[playerIndexToVote].isSpy) {
         return <SpyVotingLayout
                 playerName={playersInGame[playerIndexToVote]['name']}
                 handleSpyLocationChoice={handleSpyLocationChoice}/>
@@ -53,11 +60,10 @@ const NormalPlayerVotingLayout = ({players, playerIndex, handlePlayerChoiceChang
                     if (player === players[playerIndex]) {
                         return null;
                     } else {
-                        return (<Button onClick={handlePlayerChoiceChange} value={playerIndex}>
+                        return (<Button onClick={handlePlayerChoiceChange} value={player.id}>
                             {player['name']}
                         </Button>)
                     }
-                    
                 })}
             </Row>
             <Row>

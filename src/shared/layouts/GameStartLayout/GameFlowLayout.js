@@ -18,9 +18,11 @@ class GameFlowLayout extends Component{
         this.handlePlayerChoiceChange = this.handlePlayerChoiceChange.bind(this);
         this.handleSpyLocationChoice = this.handleSpyLocationChoice.bind(this);
         this.handlePlayersDoneVoting = this.handlePlayersDoneVoting.bind(this);
+        this.skipPlayerForVoting = this.skipPlayerForVoting.bind(this);
     }
 
     communicationEnds() {
+        console.log(this.state.gameState);
         alert("Finished communication!");
         this.setState({
             gameState: gameState.Vote
@@ -31,7 +33,7 @@ class GameFlowLayout extends Component{
         event.preventDefault();
         console.log(event.target);
         var playerVotesTemp = this.state.playerVotes;
-        playerVotesTemp[event.target] += 1;
+        playerVotesTemp[event.target.value] += 1;
         this.setState({
             playerIndexToVote: this.state.playerIndexToVote + 1,
             playerVotes: playerVotesTemp,
@@ -48,6 +50,18 @@ class GameFlowLayout extends Component{
             playerIndexToVote: this.state.playerIndexToVote + 1,
         })
     }
+    
+    // this should be used when a player is out of the game and we want to skip his turn in voting
+    skipPlayerForVoting() {
+        this.setState({playerIndexToVote: this.state.playerIndexToVote + 1})
+    }
+
+    resetRound(){
+        this.setState({
+            playerVotes: this.state.playerVotes.fill(0),
+            playerIndexToVote: 0
+        })
+    }
 
     handlePlayersDoneVoting() {
         // Tally results and see if spy has been caught.
@@ -57,7 +71,10 @@ class GameFlowLayout extends Component{
         switch (results) {
             case roundEndStates.Tie:
                 alert("Tie round. No one was eliminated.");
-                this.setState({gameState: gameState.Communicate})
+                this.resetRound();
+                this.setState({
+                    gameState: gameState.Communicate
+                })
                 break;
             case roundEndStates.SpyEliminated:
                 // spy guessed correctly
@@ -68,15 +85,19 @@ class GameFlowLayout extends Component{
                     alert(this.state.playersInGame[playerIndexEliminated].name + " is a spy!");
                     var playersInGame = removePlayerFromGame(this.state.playersInGame, playerIndexEliminated);
                     if (stillHasSpiesInGame(playersInGame)) {
-                        this.setState({playersInGame: playersInGame});
+                        this.resetRound();
+                        this.setState({
+                            playersInGame: playersInGame
+                        });
                     } else this.props.handleGameEnd();      // commoners win
                 } 
                 break;
             case roundEndStates.CommonerEliminated:
                 alert(this.state.playersInGame[playerIndexEliminated].name + " has been wrongfully eliminated...");
+                this.resetRound();
                 this.setState({
                     playersInGame: removePlayerFromGame(this.state.playersInGame, playerIndexEliminated),
-                    gameState: gameState.Communicate    
+                    gameState: gameState.Communicate
                 });                
         }
     }
@@ -87,12 +108,14 @@ class GameFlowLayout extends Component{
                 return <CommunicateLayout communicationEnds={this.communicationEnds}/>
 
             case gameState.Vote:
+                console.log("Voting...");
                 return <VotingLayout 
                     playersInGame={this.state.playersInGame} 
                     playerIndexToVote={this.state.playerIndexToVote}
                     handlePlayerChoiceChange={this.handlePlayerChoiceChange}
                     handleSpyLocationChoice={this.handleSpyLocationChoice}
-                    handlePlayersDoneVoting={this.handlePlayersDoneVoting}/>
+                    handlePlayersDoneVoting={this.handlePlayersDoneVoting}
+                    skipPlayerForVoting={this.skipPlayerForVoting}/>
             default:
                 return 
         }        
