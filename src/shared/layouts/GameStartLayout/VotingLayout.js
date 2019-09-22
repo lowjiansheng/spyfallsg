@@ -57,17 +57,18 @@ const NormalPlayerVotingLayout = ({players, playerIndex, handlePlayerChoiceChang
             </Row>
             <Row>
                 {players.map(player => {
+                    // one does not vote for oneself
                     if (player === players[playerIndex]) {
                         return null;
-                    } else {
+                    } else if (!player.inGame) {    // neither does one vote for one not in game
+                        return null;
+                    }
+                    else {
                         return (<Button onClick={handlePlayerChoiceChange} value={player.id}>
                             {player['name']}
                         </Button>)
                     }
                 })}
-            </Row>
-            <Row>
-
             </Row>
         </Container>
     )
