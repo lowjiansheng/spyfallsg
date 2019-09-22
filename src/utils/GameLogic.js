@@ -10,7 +10,7 @@ export const roundEndConclusion = (players, playerVotes) => {
         return x > playerVotes[indexMax] ? i : indexMax
     }, 0)    
     if (isMultiplePlayersVoted(playerVotes, Math.max.apply(null, playerVotes))) return {results: roundEndStates.Tie, playerIndexEliminated: -1};
-    if (players[maxIndex]['spy']) return {results: roundEndStates.SpyEliminated, playerIndexEliminated: maxIndex};
+    if (players[maxIndex].isSpy) return {results: roundEndStates.SpyEliminated, playerIndexEliminated: maxIndex};
     return {results: roundEndStates.CommonerEliminated, playerIndexEliminated: maxIndex}; 
 }
 

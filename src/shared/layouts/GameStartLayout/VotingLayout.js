@@ -17,7 +17,7 @@ const VotingLayout = ({playersInGame,
         skipPlayerForVoting();
         return null;
     }
-    console.log(playersInGame[playerIndexToVote].name + " isSpy: " + playersInGame[playerIndexToVote].spy);
+    console.log(playersInGame[playerIndexToVote].name + " isSpy: " + playersInGame[playerIndexToVote].isSpy);
     if (playersInGame[playerIndexToVote].isSpy) {
         return <SpyVotingLayout
                 playerName={playersInGame[playerIndexToVote]['name']}
