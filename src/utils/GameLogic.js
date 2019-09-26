@@ -33,9 +33,26 @@ export const removePlayerFromGame = (players, playerIndexToBeRemoved) => {
 
 export const stillHasSpiesInGame = (players) => {
     let noSpiesLeft = players.every(player => {
-        if (player.spy && player.inGame) {
+        if (player.isSpy && player.inGame) {
             return false;
         } else return true;
     })
     return !noSpiesLeft;
+}
+
+// return false if only 1 commoner left
+// return true if > 1 commoner
+// throws error if < 1 commoner
+export const stillHasCommonersInGame = (players) => {
+    var oneCommonerFound = false
+    let noCommonersLeft = players.every(player => {
+        if (!player.isSpy && player.inGame && !oneCommonerFound){
+            oneCommonerFound = true;
+            return true;
+        } 
+        else if (!player.isSpy && player.inGame && oneCommonerFound) {
+            return false;   
+        } else return true;
+    })
+    return !noCommonersLeft;
 }

@@ -4,6 +4,7 @@ import CommunicateLayout from './CommunicateLayout';
 import VotingLayout from './VotingLayout';
 import { roundEndConclusion, stillHasSpiesInGame as stillHasSpiesInGame, removePlayerFromGame } from '../../../utils/GameLogic';
 import roundEndStates from '../../constants/roundEndStates';
+import gameEndResults from '../../constants/gameEndResults';
 
 class GameFlowLayout extends Component{
     constructor(props) {
@@ -78,7 +79,7 @@ class GameFlowLayout extends Component{
                 break;
             case roundEndStates.SpyEliminated:
                 // spy guessed correctly
-                if (this.state.playersInGame[playerIndexEliminated].spyChosenLocation === this.props.gameLocation) this.props.handleGameEnd();
+                if (this.state.playersInGame[playerIndexEliminated].spyChosenLocation === this.props.gameLocation) this.props.handleGameEnd(gameEndResults.SpyWinGuessedLocation);
                 else {
                     // spy eliminated
                     // TODO: make this more beautiful
@@ -89,16 +90,19 @@ class GameFlowLayout extends Component{
                         this.setState({
                             playersInGame: playersInGame
                         });
-                    } else this.props.handleGameEnd();      // commoners win
+                    } else this.props.handleGameEnd(gameEndResults.CommonersWin);      // commoners win
                 } 
                 break;
             case roundEndStates.CommonerEliminated:
                 alert(this.state.playersInGame[playerIndexEliminated].name + " has been wrongfully eliminated...");
                 this.resetRound();
+                var playersInGame = removePlayerFromGame(this.state.playersInGame, playerIndexEliminated);
+                // Check if there are still commoners in game.
                 this.setState({
                     playersInGame: removePlayerFromGame(this.state.playersInGame, playerIndexEliminated),
                     gameState: gameState.Communicate
-                });                
+                });
+                            
         }
     }
 

@@ -6,6 +6,7 @@ import HomePageLayout from '../../shared/layouts/HomePageLayout';
 import PAGE from '../../shared/constants/pages';
 import { setupPlayers } from '../../utils/GameSetup';
 import GameStartLayout from '../../shared/layouts/GameStartLayout';
+import gameEndResults from '../../shared/constants/gameEndResults';
 
 // This is the main view for the entire game
 class HomePageView extends Component {
@@ -58,8 +59,18 @@ class HomePageView extends Component {
         })
     }
 
-    handleGameEnd() {
+    handleGameEnd(results) {
         // When a single game ends. 
+        switch (results) {
+            case gameEndResults.SpyWinAllCommonersDead:
+                alert("Spy won! All the commoners are dead.");
+            case gameEndResults.SpyWinGuessedLocation:
+                alert("Spy won! Spy has guessed the location!");
+            case gameEndResults.CommonersWin:
+                alert("Commoners won! They have eliminated the spy and the spy did not get the location.");
+        }                
+        // For now just return back to home
+        this.setState({gameState: PAGE.HOME})
     }
 
     render() {
