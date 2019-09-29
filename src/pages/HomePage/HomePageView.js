@@ -69,7 +69,7 @@ class HomePageView extends Component {
             case gameEndResults.CommonersWin:
                 alert("Commoners won! They have eliminated the spy and the spy did not get the location.");
         }                
-        // For now just return back to home
+        // For now just return back to home, probably need to erase all the game settings from state
         this.setState({gameState: PAGE.HOME})
     }
 

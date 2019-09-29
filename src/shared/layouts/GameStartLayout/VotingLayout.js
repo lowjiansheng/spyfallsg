@@ -28,6 +28,7 @@ const VotingLayout = ({playersInGame,
             playerIndex={playerIndexToVote}
             handlePlayerChoiceChange={handlePlayerChoiceChange}/>
     }
+
 }
 
 const SpyVotingLayout = ({playerName, handleSpyLocationChoice}) => {

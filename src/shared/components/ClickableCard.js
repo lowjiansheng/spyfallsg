@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Form, Button, Row } from "react-bootstrap";
+import { Card, Form, Button, Row, Col } from "react-bootstrap";
 
 import cardStates from '../constants/cardStates';
 
@@ -23,8 +23,6 @@ class ClickableCard extends Component {
 
     handleNameCardSubmit(event) {
         event.preventDefault();
-        console.log("Name card submit?")
-        console.log(this.state.name)
         // Name validation
         if (this.state.name === "") {
             return;
@@ -73,11 +71,13 @@ class ClickableCard extends Component {
                 break;
         }
         return (
-            <Card>
-                <Card.Body>
-                    {cardContent}
-                </Card.Body>
-            </Card>
+            <Col xs={4}>
+                <Card>
+                    <Card.Body>
+                        {cardContent}
+                    </Card.Body>
+                </Card>
+            </Col>
         )
     }
 }
@@ -113,7 +113,7 @@ const NameCardContent = ({handleSubmitFunction, handleChangeFunction, nameValue}
         <Card.Body>
             <Form onSubmit={handleSubmitFunction}>
                 <Form.Group controlId="formName">
-                    <Form.Label >Input Name</Form.Label>
+                    <Form.Label>Input Name</Form.Label>
                     <Form.Control type="text" onChange={handleChangeFunction} value={nameValue}/>
                 </Form.Group>
                 <Button variant="primary" type="submit">Go</Button>
