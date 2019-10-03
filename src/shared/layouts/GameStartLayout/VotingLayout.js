@@ -33,30 +33,30 @@ const VotingLayout = ({playersInGame,
 
 const SpyVotingLayout = ({playerName, handleSpyLocationChoice}) => {
     return (
-        <Container>
-            <Row>
+        <div className="d-flex align-self-center flex-column">
+            <div className="p2">
                 Hi {playerName}. Choose the correct location.
-            </Row>
-            <Row>
+            </div>
+            <div className="p2">
                 {LOCATIONS.map(location => {
                     return (
                     <Button onClick={handleSpyLocationChoice}>
                         {location}
                     </Button>)
                 })}
-            </Row>
-        </Container>
+            </div>
+        </div>
     )
 }
 
 // Need to work on the button value.
 const NormalPlayerVotingLayout = ({players, playerIndex, handlePlayerChoiceChange}) => {
     return (
-        <Container>
-            <Row>
+        <div className="d-flex align-self-center flex-column">
+            <div className="p2">
                 Hi {players[playerIndex]['name']}! Please vote for the spy.
-            </Row>
-            <Row>
+            </div>
+            <div className="p2">
                 {players.map(player => {
                     // one does not vote for oneself
                     if (player === players[playerIndex]) {
@@ -70,8 +70,8 @@ const NormalPlayerVotingLayout = ({players, playerIndex, handlePlayerChoiceChang
                         </Button>)
                     }
                 })}
-            </Row>
-        </Container>
+            </div>
+        </div>
     )
 }
 export default VotingLayout;

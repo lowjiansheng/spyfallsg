@@ -1,16 +1,19 @@
 import React from 'react';
-import { Row, Container, Button } from 'react-bootstrap';
+import { Row, Container, Button, Col } from 'react-bootstrap';
 import PrimaryBanner from '../GameSetupLayout/PrimaryBanner';
+
+import "../../css/alignment.css"
+import "../../css/bootstrap.min.css"
 
 const HomePageLayout = ({startGameSetup}) => {
     return (
-        <div>
-            <Row>
+        <div className="d-flex align-self-center flex-column ">
+            <div className="p2 ">
                 <PrimaryBanner />
-            </Row>
-            <Row>
-                <Button variant="light" onClick={startGameSetup}>Start Game</Button>
-            </Row>
+            </div>
+            <div className="d-flex p2 justify-content-center">
+                <Button variant="light" onClick={startGameSetup} >Start Game</Button>
+            </div>  
         </div>
     )
 }

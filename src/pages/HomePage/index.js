@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import HomePageView from './HomePageView';
 import { Container } from '@material-ui/core';
 
+import '../../shared/css/alignment.css'
+
 // This is the main container / holder for the entire application
 class HomePage extends Component {
     render() {
         return (
-            <Container style={{
-                position: 'absolute', left: '50%', top: '50%',
-                transform: 'translate(-10%, -50%)'
-            }}>
+            <Container className="d-flex fill justify-content-center">
                 <HomePageView {...this.props}/>
             </Container>
             
@@ -18,3 +17,10 @@ class HomePage extends Component {
 }
 
 export default HomePage;
+
+/*
+style={{
+                position: 'absolute', left: '50%', top: '50%',
+                transform: 'translate(-10%, -50%)'
+            }}
+*/

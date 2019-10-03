@@ -7,11 +7,12 @@ import GameSetupForm from './GameSetupForm';
 
 const GameSetupLayout = ({startGame, numPlayers, numSpies, maxSpies, handleNumPlayersChange, handleNumSpiesChange}) => {    
     return (
-        <Container>
-            <Row>
+        <div className="d-flex align-self-center flex-column">
+            <div className="p2">
                 <PrimaryBanner/>     
-            </Row>
-            <Row>
+            </div>
+
+            <div className="d-flex p2 justify-content-center">
                 <GameSetupForm
                     startGame={startGame} 
                     numPlayers={numPlayers}
@@ -19,8 +20,8 @@ const GameSetupLayout = ({startGame, numPlayers, numSpies, maxSpies, handleNumPl
                     maxSpies={maxSpies}
                     handleNumPlayersChange={handleNumPlayersChange}
                     handleNumSpiesChange={handleNumSpiesChange}/>
-            </Row>
-        </Container>
+            </div>
+        </div>
     )
 };
 

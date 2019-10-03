@@ -11,7 +11,7 @@ const PlayerSetupLayout = ({ gameSettings, setPlayerName, setPlayerDoneSettingUp
                     setPlayerDoneSettingUp={setPlayerDoneSettingUp}/>)
     }
     return (
-        <div>
+        <div className="d-flex align-self-center flex-column">
             {layout}
         </div>
     );

@@ -71,13 +71,13 @@ class ClickableCard extends Component {
                 break;
         }
         return (
-            <Col xs={4}>
+            <div className="p2">
                 <Card>
                     <Card.Body>
                         {cardContent}
                     </Card.Body>
                 </Card>
-            </Col>
+            </div>
         )
     }
 }
@@ -97,12 +97,12 @@ const LocationSpyContent = ({handleLocationSpyRevealClick, location, isSpy}) => 
     }
     return (
         <Card.Body>
-        <Row>
+        <div className="p2">
             {displayContent}
-        </Row>
-        <Row>
+        </div>
+        <div className="p2">
             <Button onClick={handleLocationSpyRevealClick}>Continue</Button>
-        </Row>
+        </div>
     </Card.Body>
     )
 }
