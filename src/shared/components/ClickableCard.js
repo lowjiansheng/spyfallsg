@@ -6,9 +6,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-
+import { useStyles } from './ClickableCardStyles';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
 import cardStates from '../constants/cardStates';
+import { withStyles } from "@material-ui/styles";
 
 class ClickableCard extends Component {
     constructor(props) {
@@ -41,6 +44,11 @@ class ClickableCard extends Component {
     }
 
     handleInitialCardClick() {
+        if (this.props.cardSettingUp) {
+            return;
+        } 
+        this.props.handleCardInSetup(true); 
+
         this.setState({
             cardState: cardStates.NameSetup
         })
@@ -48,6 +56,7 @@ class ClickableCard extends Component {
 
     handleLocationSpyRevealClick(event) {
         event.preventDefault();
+        this.props.handleCardInSetup(false);
         this.setState({
             cardState: cardStates.Done
         })
@@ -56,6 +65,8 @@ class ClickableCard extends Component {
 
     // First let the user click the card, then allow for input. 
     render() {
+        const { classes, children, className, ...other } = this.props;
+
         console.log(this.state.cardState);
         var cardContent;
         switch (this.state.cardState) {
@@ -77,9 +88,10 @@ class ClickableCard extends Component {
                 cardContent = <DoneContent/>
                 break;
         }
+
         return (
-            <div className="p2">
-                <Card>
+            <div>
+                <Card className={clsx(classes.root, className)} {...other}>
                     {cardContent}
                 </Card>
             </div>
@@ -146,5 +158,17 @@ const DoneContent = () => {
     )
 }
 
+ClickableCard.propTypes = {
+    children: PropTypes.node,
+    classes: PropTypes.object.isRequired,
+    className: PropTypes.string,
+};
 
-export default ClickableCard;
+const clickableCardStyles = {
+    root: {
+        margin: "5%",
+    }
+}
+
+
+export default withStyles(clickableCardStyles)(ClickableCard);

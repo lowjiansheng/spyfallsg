@@ -10,10 +10,12 @@ class GameStartLayout extends Component {
             gameSettings: props.gameSettings,
             gameReady: false,
             players: [],
-            numPlayersDone: 0 // track how many players have finished setting up
+            numPlayersDone: 0, // track how many players have finished setting up
+            cardSettingUp: false,
         }
         this.setPlayerName = this.setPlayerName.bind(this);
         this.setPlayerDoneSettingUp = this.setPlayerDoneSettingUp.bind(this);
+        this.handleCardInSetup = this.handleCardInSetup.bind(this);
     }
 
     setPlayerName(playerIndex, playerName) {
@@ -41,6 +43,19 @@ class GameStartLayout extends Component {
         }
     }
 
+    // when a single player is setting up, other players will not be able to click their cards
+    handleCardInSetup(isSettingUp) {
+        if (isSettingUp) {
+            this.setState({
+                cardSettingUp: true,
+            });
+        } else {
+            this.setState({
+                cardSettingUp: false,
+            })
+        }
+    }
+
     render() {
         if (this.state.gameReady){
             return <GameFlowLayout
@@ -50,7 +65,9 @@ class GameStartLayout extends Component {
         } else return <PlayerSetupLayout 
             gameSettings={this.state.gameSettings} 
             setPlayerName={this.setPlayerName}
-            setPlayerDoneSettingUp={this.setPlayerDoneSettingUp}/>
+            setPlayerDoneSettingUp={this.setPlayerDoneSettingUp}
+            handleCardInSetup={this.handleCardInSetup}
+            cardSettingUp={this.state.cardSettingUp}/>
     }
 
 }

@@ -6,6 +6,11 @@
 
 }
 
+.player-setup-container {
+    width: 80%;
+    height: 90%;
+}
+
 .maximum-width {
     width: 100%;
 }
