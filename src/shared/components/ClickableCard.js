@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Card, Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
+
 
 import cardStates from '../constants/cardStates';
 
@@ -67,15 +74,13 @@ class ClickableCard extends Component {
                     isSpy={this.props.isSpy}/>
                 break;
             case cardStates.Done:
-                cardContent = (<p>Wait for the start of the game.</p>)
+                cardContent = <DoneContent/>
                 break;
         }
         return (
             <div className="p2">
                 <Card>
-                    <Card.Body>
-                        {cardContent}
-                    </Card.Body>
+                    {cardContent}
                 </Card>
             </div>
         )
@@ -84,7 +89,11 @@ class ClickableCard extends Component {
 
 const FlippedContent = ({handleInitialCardClick}) => {
     return (
-        <Card.Body onClick={handleInitialCardClick}>Your turn. Please click the card.</Card.Body>
+        <CardContent onClick={handleInitialCardClick}>
+            <Typography color="textSecondary" variant="body2">
+                Please click the card.
+            </Typography>
+        </CardContent>
     )
 }
 
@@ -96,29 +105,44 @@ const LocationSpyContent = ({handleLocationSpyRevealClick, location, isSpy}) => 
         displayContent = <p>The location is {location}</p>
     }
     return (
-        <Card.Body>
-        <div className="p2">
-            {displayContent}
-        </div>
-        <div className="p2">
-            <Button onClick={handleLocationSpyRevealClick}>Continue</Button>
-        </div>
-    </Card.Body>
+        <CardContent>
+            <Typography className="d-flex p2" variant="body2">
+                {displayContent}
+            </Typography>
+            <Typography className="d-flex p2 justify-content-center" variant="body2">
+                <Button variant="contained" color="primary" onClick={handleLocationSpyRevealClick}>Done</Button>
+            </Typography>
+        </CardContent>
     )
 }
 
 
 const NameCardContent = ({handleSubmitFunction, handleChangeFunction, nameValue}) => {
     return (
-        <Card.Body>
+        <CardContent>
             <Form onSubmit={handleSubmitFunction}>
                 <Form.Group controlId="formName">
-                    <Form.Label>Input Name</Form.Label>
+                    <Typography>
+                        <Form.Label>Input Name</Form.Label>
+                    </Typography>
                     <Form.Control type="text" onChange={handleChangeFunction} value={nameValue}/>
                 </Form.Group>
-                <Button variant="primary" type="submit">Go</Button>
+                <div className="d-flex justify-content-center">
+                    <Button variant="contained" color="primary" type="submit">Continue</Button>
+                </div>
             </Form>
-        </Card.Body>
+
+        </CardContent>
+    )
+}
+
+const DoneContent = () => {
+    return (
+        <CardContent>
+            <Typography>
+                <p>Wait for the start of the game.</p>
+            </Typography>
+        </CardContent>
     )
 }
 

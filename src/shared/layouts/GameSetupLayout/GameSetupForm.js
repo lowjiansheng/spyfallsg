@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import Slider from '@material-ui/core/Slider';
 import { Component } from 'react';
+import Button from '@material-ui/core/Button';
 
 
 const GameSetupForm = ({startGame, numPlayers, numSpies, maxSpies, handleNumPlayersChange, handleNumSpiesChange}) => {
@@ -33,8 +34,8 @@ const GameSetupForm = ({startGame, numPlayers, numSpies, maxSpies, handleNumPlay
                         min={1}
                         max={maxSpies}/>
             </Form.Group>
-            <Form.Group>
-            <Button type="submit">Start game!</Button>
+            <Form.Group className="d-flex justify-content-center">
+            <Button variant="contained" color="primary" type="submit">Start</Button>
             </Form.Group>
         </Form>
     )
