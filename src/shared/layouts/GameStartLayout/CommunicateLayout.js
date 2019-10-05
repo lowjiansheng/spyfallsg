@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import gameSettings from '../../constants/gameSettings';
 
 class CommunicateLayout extends Component{
     constructor(props) {
@@ -6,7 +7,7 @@ class CommunicateLayout extends Component{
         this.timer = this.timer.bind(this);
         let timeoutId = setInterval(this.timer, 1000);
         this.state = {
-            counter : 3,
+            counter : gameSettings.CommunicationTime,
             timeoutId,
         }
     }
@@ -23,7 +24,16 @@ class CommunicateLayout extends Component{
     }
 
     render(){
-        return <p>Time Left: {this.state.counter}</p>
+        return (
+            <div className="d-flex p2 align-self-center flex-column">
+                <div className="d-flex p2">
+                    <h5>Find out who's the spy...</h5>
+                </div>
+                <div className="d-flex p2 justify-content-center">
+                    <p>{this.state.counter} seconds left</p>
+                </div>
+            </div>
+        )
     }
 }
 
