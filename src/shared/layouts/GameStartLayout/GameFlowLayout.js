@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import gameState from '../../constants/gameStates';
 import CommunicateLayout from './CommunicateLayout';
-import VotingLayout from './VotingLayout';
+import VotingLayout from '../VotingLayout';
 import { roundEndConclusion, stillHasSpiesInGame as stillHasSpiesInGame, removePlayerFromGame } from '../../../utils/GameLogic';
 import roundEndStates from '../../constants/roundEndStates';
 import gameEndResults from '../../constants/gameEndResults';
@@ -23,28 +23,24 @@ class GameFlowLayout extends Component{
     }
 
     communicationEnds() {
-        console.log(this.state.gameState);
         alert("Finished communication!");
         this.setState({
             gameState: gameState.Vote
         })
     }
 
-    handlePlayerChoiceChange(event) {
-        event.preventDefault();
-        console.log(event.target);
+    handlePlayerChoiceChange(chosenPlayerIndex) {
         var playerVotesTemp = this.state.playerVotes;
-        playerVotesTemp[event.target.value] += 1;
+        playerVotesTemp[chosenPlayerIndex] += 1;
         this.setState({
             playerIndexToVote: this.state.playerIndexToVote + 1,
             playerVotes: playerVotesTemp,
         })
     }
 
-    handleSpyLocationChoice(event) {
-        event.preventDefault();
+    handleSpyLocationChoice(chosenLocation) {
         var playersInGame = this.state.playersInGame;
-        playersInGame[this.state.playerIndexToVote].spyChosenLocation = event.target;
+        playersInGame[this.state.playerIndexToVote].spyChosenLocation = chosenLocation;
         
         this.setState({
             playersInGame: playersInGame,    
@@ -110,9 +106,7 @@ class GameFlowLayout extends Component{
         switch (this.state.gameState) {
             case gameState.Communicate:
                 return <CommunicateLayout communicationEnds={this.communicationEnds}/>
-
             case gameState.Vote:
-                console.log("Voting...");
                 return <VotingLayout 
                     playersInGame={this.state.playersInGame} 
                     playerIndexToVote={this.state.playerIndexToVote}
@@ -120,8 +114,6 @@ class GameFlowLayout extends Component{
                     handleSpyLocationChoice={this.handleSpyLocationChoice}
                     handlePlayersDoneVoting={this.handlePlayersDoneVoting}
                     skipPlayerForVoting={this.skipPlayerForVoting}/>
-            default:
-                return 
         }        
     }
 }

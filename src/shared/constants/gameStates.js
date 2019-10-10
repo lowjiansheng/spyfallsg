@@ -1,6 +1,7 @@
 const gameStates = {
     Communicate : "Communicate",
-    Vote: "Vote"
+    CommunicationEnds: "CommunicationEnds",
+    Vote: "Vote",
 }
 
 export default gameStates;
