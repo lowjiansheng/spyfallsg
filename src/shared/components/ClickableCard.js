@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+import ReactCardFlip from 'react-card-flip';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -18,7 +18,8 @@ class ClickableCard extends Component {
         this.state = {
             isFirstGame: this.props.isFirstGame,
             cardState: cardStates.Flipped,
-            name: ""
+            name: "",
+            isFlipped: false
         }
         this.handleInitialCardClick = this.handleInitialCardClick.bind(this);
         this.handleNameCardChange = this.handleNameCardChange.bind(this);
@@ -49,6 +50,7 @@ class ClickableCard extends Component {
         this.props.handleCardInSetup(true); 
 
         this.setState({
+            isFlipped: !this.state.isFlipped,
             cardState: cardStates.NameSetup
         })
     }
@@ -57,7 +59,8 @@ class ClickableCard extends Component {
         event.preventDefault();
         this.props.handleCardInSetup(false);
         this.setState({
-            cardState: cardStates.Done
+            cardState: cardStates.Done,
+            isFlipped: !this.state.isFlipped,
         })
         this.props.setPlayerDoneSettingUp();
     }
@@ -66,11 +69,11 @@ class ClickableCard extends Component {
     render() {
         const { classes, children, className, ...other } = this.props;
 
-        console.log(this.state.cardState);
         var cardContent;
+        var flippedContent;
         switch (this.state.cardState) {
             case cardStates.Flipped:
-                cardContent = <FlippedContent handleInitialCardClick={this.handleInitialCardClick}/>
+                flippedContent = <FlippedContent handleInitialCardClick={this.handleInitialCardClick}/>
                 break;
             case cardStates.NameSetup:
                 cardContent = <NameCardContent handleSubmitFunction={this.handleNameCardSubmit} 
@@ -84,17 +87,25 @@ class ClickableCard extends Component {
                     isSpy={this.props.isSpy}/>
                 break;
             case cardStates.Done:
-                cardContent = <DoneContent/>
+                flippedContent = <DoneContent/>
                 break;
         }
 
         return (
             <div>
-                <Card className={clsx(classes.root, className)} {...other}>
-                    {cardContent}
-                </Card>
+                <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
+                    <Card key="back" >
+                        {cardContent}
+                    </Card>
+
+                    <Card key="front"  >
+                        {flippedContent}
+                    </Card>
+
+                </ReactCardFlip>
             </div>
         )
+        //className={clsx(classes.root, className)} {...other}
     }
 }
 
@@ -111,9 +122,9 @@ const FlippedContent = ({handleInitialCardClick}) => {
 const LocationSpyContent = ({handleLocationSpyRevealClick, location, isSpy}) => {
     var displayContent;
     if (isSpy) { 
-        displayContent = <p>You are a Spy!</p>
+        displayContent = <p>You are a Spy.</p>
     } else {
-        displayContent = <p>The location is {location}</p>
+        displayContent = <p>The location is {location}.</p>
     }
     return (
         <CardContent>
@@ -151,7 +162,7 @@ const DoneContent = () => {
     return (
         <CardContent>
             <Typography>
-                <p>Wait for the start of the game.</p>
+                Wait for the start of the game.
             </Typography>
         </CardContent>
     )

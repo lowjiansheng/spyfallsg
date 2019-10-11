@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 
 import Button from '@material-ui/core/Button';
-import { Container, Snackbar } from '@material-ui/core';
 import  LOCATIONS  from '../../constants/locations';
 import votingStates from '../../constants/votingStates';
 
-/*
-= ({playersInGame, 
-    playerIndexToVote, 
-    handlePlayerChoiceChange,
-    handleSpyLocationChoice,
-    handlePlayersDoneVoting,
-    skipPlayerForVoting}) => {*/
+const commonerButton = "commonerButton";
+const spyButton = "spyButton";
 
 class VotingLayout extends Component {
     constructor(props){
@@ -39,15 +33,16 @@ class VotingLayout extends Component {
             votingState: votingStates.Selection,
         });
     }
-
+    
     handleVotingButtonClick(e) {
         e.preventDefault();
         switch(e.currentTarget.id) {
-            case "spyButton":
+            case spyButton:
                 this.props.handleSpyLocationChoice(e.currentTarget.value);
-            case "commonerButton":
+            case commonerButton:
                 this.props.handlePlayerChoiceChange(e.currentTarget.value);
         }
+        // Only render if we are still rendering voting states
         if (this.props.playerIndexToVote >= this.props.playersInGame.length - 1) {
             this.setState({
                 votingState: votingStates.PreConfirmation,
@@ -55,7 +50,6 @@ class VotingLayout extends Component {
         }
     
     }
-
 
     render() {
         if (this.props.playerIndexToVote >= this.props.playersInGame.length) {
@@ -107,7 +101,7 @@ const SpyVotingLayout = ({playerName, handleVotingButtonClick}) => {
             <div className="p2">
                 {LOCATIONS.map(location => {
                     return (
-                    <Button color="primary" onClick={handleVotingButtonClick} id="spyButton">
+                    <Button color="primary" onClick={handleVotingButtonClick} id={spyButton}>
                         {location}
                     </Button>)
                 })}
@@ -133,7 +127,7 @@ const NormalPlayerVotingLayout = ({players, playerIndex, handleVotingButtonClick
                         return null;
                     }
                     else {
-                        return (<Button color="primary" key={player.id} onClick={handleVotingButtonClick} id="commonerButton" value={player.id}>
+                        return (<Button color="primary" key={player.id} onClick={handleVotingButtonClick} id={commonerButton} value={player.id}>
                             {player['name']}
                         </Button>)
                     }
