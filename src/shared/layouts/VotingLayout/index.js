@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import  LOCATIONS  from '../../constants/locations';
 import votingStates from '../../constants/votingStates';
+import { GenericSnackbar } from '../../components/Snackbar';
 
 const commonerButton = "commonerButton";
 const spyButton = "spyButton";
@@ -10,16 +11,15 @@ const spyButton = "spyButton";
 class VotingLayout extends Component {
     constructor(props){
         super(props);
-
-        if (props.playerIndexToVote >= props.playersInGame.length) {
-            props.handlePlayersDoneVoting();
-            return null;
-        }
+        // Every player passed in has to be in game
         if (!props.playersInGame[props.playerIndexToVote].inGame) {
-            props.skipPlayerForVoting();
+            console.log("Error. Player not in game not supposed to be here.");
             return null;
         }
-        
+        if (props.playerIndexToVote >= props.playersInGame.length) {
+            console.log("Error. playerIndex higher than number of players.");
+            return null;
+        }
         this.state = {
             votingState: votingStates.PreConfirmation
         }
@@ -39,11 +39,14 @@ class VotingLayout extends Component {
         switch(e.currentTarget.id) {
             case spyButton:
                 this.props.handleSpyLocationChoice(e.currentTarget.value);
+                break;
             case commonerButton:
                 this.props.handlePlayerChoiceChange(e.currentTarget.value);
+                break;
         }
         // Only render if we are still rendering voting states
-        if (this.props.playerIndexToVote >= this.props.playersInGame.length - 1) {
+        // Warning: do not call this for the last player.
+        if (this.props.playerIndexToVote < this.props.playersInGame.length - 1) {
             this.setState({
                 votingState: votingStates.PreConfirmation,
             })
@@ -52,15 +55,6 @@ class VotingLayout extends Component {
     }
 
     render() {
-        if (this.props.playerIndexToVote >= this.props.playersInGame.length) {
-            this.props.handlePlayersDoneVoting();
-            return null;
-        }
-        if (!this.props.playersInGame[this.props.playerIndexToVote].inGame) {
-            this.props.skipPlayerForVoting();
-            return null;
-        }
-
         switch (this.state.votingState) {
             case votingStates.PreConfirmation:
                 return <PreVotingLayout 
@@ -85,6 +79,7 @@ class VotingLayout extends Component {
 const PreVotingLayout = ({ playerName, handlePreConfirmationButtonClick }) => {
     return(
         <div className="d-flex p2 align-self-center flex-column">
+            <GenericSnackbar/>
             Hi {playerName}. Please click the button to continue.
             <Button color="primary" onClick={handlePreConfirmationButtonClick}>Continue</Button>
         </div>
@@ -101,7 +96,7 @@ const SpyVotingLayout = ({playerName, handleVotingButtonClick}) => {
             <div className="p2">
                 {LOCATIONS.map(location => {
                     return (
-                    <Button color="primary" onClick={handleVotingButtonClick} id={spyButton}>
+                    <Button color="primary" onClick={handleVotingButtonClick} key={location} id={spyButton}>
                         {location}
                     </Button>)
                 })}

@@ -11,7 +11,7 @@ class GameFlowLayout extends Component{
         super(props);
         this.state = {
             gameState: gameState.Communicate,
-            playerIndexToVote: 0,
+            playerIndexToVote: this.getNextPlayerIndexInGame(0, this.props.players),
             playerVotes: new Array(this.props.players.length).fill(0),  // index: user index, value: no. of times user got voted
             playersInGame: this.props.players,
         }
@@ -19,45 +19,58 @@ class GameFlowLayout extends Component{
         this.handlePlayerChoiceChange = this.handlePlayerChoiceChange.bind(this);
         this.handleSpyLocationChoice = this.handleSpyLocationChoice.bind(this);
         this.handlePlayersDoneVoting = this.handlePlayersDoneVoting.bind(this);
-        this.skipPlayerForVoting = this.skipPlayerForVoting.bind(this);
+        this.getNextPlayerIndexInGame = this.getNextPlayerIndexInGame.bind(this);
     }
 
     communicationEnds() {
-        alert("Finished communication!");
+        // alert("Finished communication!");
         this.setState({
             gameState: gameState.Vote
         })
     }
 
     handlePlayerChoiceChange(chosenPlayerIndex) {
+        console.log("handlePlayerChoice called");
         var playerVotesTemp = this.state.playerVotes;
         playerVotesTemp[chosenPlayerIndex] += 1;
-        this.setState({
-            playerIndexToVote: this.state.playerIndexToVote + 1,
-            playerVotes: playerVotesTemp,
-        })
+        //debugger;
+        if (this.state.playerIndexToVote + 1 === this.state.playersInGame.length) this.handlePlayersDoneVoting();
+        else {
+            this.setState({
+                playerIndexToVote: this.getNextPlayerIndexInGame(this.state.playerIndexToVote + 1, this.state.playersInGame),
+                playerVotes: playerVotesTemp,
+            });
+        };
     }
 
     handleSpyLocationChoice(chosenLocation) {
+        console.log("handleSpyLocationChoice called");
         var playersInGame = this.state.playersInGame;
         playersInGame[this.state.playerIndexToVote].spyChosenLocation = chosenLocation;
         
-        this.setState({
-            playersInGame: playersInGame,    
-            playerIndexToVote: this.state.playerIndexToVote + 1,
-        })
-    }
-    
-    // this should be used when a player is out of the game and we want to skip his turn in voting
-    skipPlayerForVoting() {
-        this.setState({playerIndexToVote: this.state.playerIndexToVote + 1})
+        if (this.state.playerIndexToVote + 1 === this.state.playersInGame.length) this.handlePlayersDoneVoting(); 
+        else {
+            this.setState({
+                playersInGame: playersInGame,    
+                playerIndexToVote: this.getNextPlayerIndexInGame(this.state.playerIndexToVote + 1, this.state.playersInGame)
+            })
+        }
     }
 
     resetRound(){
         this.setState({
             playerVotes: this.state.playerVotes.fill(0),
-            playerIndexToVote: 0
+            playerIndexToVote: this.getNextPlayerIndexInGame(0, this.state.playersInGame)           // get index of player in game
         })
+    }
+
+    // Assumption: there is at least 1 player in game. Else it will be stucked in an infinite loop.
+    getNextPlayerIndexInGame(currentIndex, playersInGame) {
+        while (!playersInGame[currentIndex].inGame) {
+            currentIndex += 1;
+            if (currentIndex === playersInGame.length) return currentIndex;
+        }
+        return currentIndex;
     }
 
     handlePlayersDoneVoting() {
@@ -91,29 +104,29 @@ class GameFlowLayout extends Component{
                 break;
             case roundEndStates.CommonerEliminated:
                 alert(this.state.playersInGame[playerIndexEliminated].name + " has been wrongfully eliminated...");
-                this.resetRound();
-                var playersInGame = removePlayerFromGame(this.state.playersInGame, playerIndexEliminated);
-                // Check if there are still commoners in game.
+                 // Check if there are still commoners in game.
                 this.setState({
                     playersInGame: removePlayerFromGame(this.state.playersInGame, playerIndexEliminated),
                     gameState: gameState.Communicate
                 });
+                this.resetRound();
+                console.log("Playerindex = " + this.state.playerIndexToVote);
                             
         }
     }
 
     render() {
+        console.log("Rendering game flow layout. Player Index = " + this.state.playerIndexToVote)
         switch (this.state.gameState) {
             case gameState.Communicate:
                 return <CommunicateLayout communicationEnds={this.communicationEnds}/>
             case gameState.Vote:
+                // We will pass in a playerIndex that is in game
                 return <VotingLayout 
                     playersInGame={this.state.playersInGame} 
                     playerIndexToVote={this.state.playerIndexToVote}
                     handlePlayerChoiceChange={this.handlePlayerChoiceChange}
-                    handleSpyLocationChoice={this.handleSpyLocationChoice}
-                    handlePlayersDoneVoting={this.handlePlayersDoneVoting}
-                    skipPlayerForVoting={this.skipPlayerForVoting}/>
+                    handleSpyLocationChoice={this.handleSpyLocationChoice}/>
         }        
     }
 }
