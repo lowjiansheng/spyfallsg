@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import gameSettings from '../../constants/gameSettings';
+import { Slider } from '@material-ui/core';
 
 class CommunicateLayout extends Component{
     constructor(props) {
@@ -10,6 +11,11 @@ class CommunicateLayout extends Component{
             counter : gameSettings.CommunicationTime,
             timeoutId,
         }
+        this.handleSliderChange = this.handleSliderChange.bind(this);
+    }
+    
+    handleSliderChange(e, value) {
+        this.setState({counter : value})
     }
     
     timer() {
@@ -31,6 +37,9 @@ class CommunicateLayout extends Component{
                 </div>
                 <div className="d-flex p2 justify-content-center">
                     <p>{this.state.counter} seconds left</p>
+                </div>
+                <div className="d-flex p2 justify-content-center">
+                    <Slider value={this.state.counter} onChange={this.handleSliderChange} aria-labelledby="continuous-slider"/>
                 </div>
             </div>
         )

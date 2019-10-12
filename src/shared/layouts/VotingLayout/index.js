@@ -79,7 +79,6 @@ class VotingLayout extends Component {
 const PreVotingLayout = ({ playerName, handlePreConfirmationButtonClick }) => {
     return(
         <div className="d-flex p2 align-self-center flex-column">
-            <GenericSnackbar/>
             Hi {playerName}. Please click the button to continue.
             <Button color="primary" onClick={handlePreConfirmationButtonClick}>Continue</Button>
         </div>
