@@ -16,6 +16,6 @@ export const LocationSpyContent = ({handleLocationSpyRevealClick, location, isSp
             <Typography className="d-flex p2 justify-content-center" variant="body2">
                 <Button variant="contained" color="primary" onClick={handleLocationSpyRevealClick}>Done</Button>
             </Typography>
-        </CardContent>
+        </CardContent> 
     )
 }

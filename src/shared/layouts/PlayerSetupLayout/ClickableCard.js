@@ -75,9 +75,9 @@ class ClickableCard extends Component {
                 flipDirection="horizontal"
                 containerStyle={
                     {
-                        margin: "10%",
+                        margin: "5%",
                         width: 150,
-                        height: 150,
+                        height: 200,
                     }
                 }>
                     <Card key="front" className={clsx(classes.root, className)} {...other}>
@@ -110,8 +110,9 @@ ClickableCard.propTypes = {
 
 const clickableCardStyles = {
     root: {
-        height: "auto",
-        width: "auto",
+        minHeight: "100%",
+        minWidth: "100%",
+        display: "flex"
     }
 }
 
