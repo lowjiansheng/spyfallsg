@@ -7,8 +7,10 @@
 }
 
 .player-setup-container {
-    width: 80%;
-    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
 }
 
 .maximum-width {

@@ -1,5 +1,5 @@
 import  React  from 'react';
-import ClickableCard from '../../components/ClickableCard';
+import ClickableCard from '../PlayerSetupLayout/ClickableCard';
 
 import "../../css/alignment.css";
 
@@ -20,7 +20,7 @@ const PlayerSetupLayout = ({
                     cardSettingUp={cardSettingUp}/>)
     }
     return (
-        <div className="d-flex align-self-center flex-column player-setup-container">
+        <div className="d-flex player-setup-container align-self-center justify-content-center">
             {layout}
         </div>
     );
