@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "express": "^4.17.1",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.11",
     "react-card-flip": "^0.8.1",
@@ -12,11 +13,13 @@
     "react-scripts": "3.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "nodemon server.js",
     "build": "react-scripts build",
     "test": "./node_modules/.bin/babel src --out-dir lib && mocha lib/**/*.test.js",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "webpack": "./node_modules/.bin/webpack -w"
   },
+  "proxy": "http://localhost:5000/",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -40,6 +43,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.6.0",
     "@material-ui/core": "^4.4.2",
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "nodemon": "^1.19.3"
   }
 }

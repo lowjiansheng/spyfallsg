@@ -4,9 +4,9 @@ import { CardContent, Typography, Button } from "@material-ui/core";
 export const LocationSpyContent = ({handleLocationSpyRevealClick, location, isSpy}) => {
     var displayContent;
     if (isSpy) { 
-        displayContent = <p>You are a Spy.</p>
+        displayContent = <span>You are a Spy.</span>
     } else {
-        displayContent = <p>The location is {location}.</p>
+        displayContent = <span>The location is {location}.</span>
     }
     return (
         <CardContent>
