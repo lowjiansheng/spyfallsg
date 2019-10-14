@@ -14,12 +14,12 @@
   },
   "scripts": {
     "start": "nodemon server.js",
+    "startlocal": "react-scripts start",
     "build": "react-scripts build",
     "test": "./node_modules/.bin/babel src --out-dir lib && mocha lib/**/*.test.js",
     "eject": "react-scripts eject",
     "webpack": "./node_modules/.bin/webpack -w"
   },
-  "proxy": "http://localhost:5000/",
   "eslintConfig": {
     "extends": "react-app"
   },

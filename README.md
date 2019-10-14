@@ -8,5 +8,5 @@
 1. `npm test`
 
 ## Running locally (for debugging and testing)
-1. `npm start`
+1. `npm run startlocal`
 2. Start `localhost:5000` on browser.

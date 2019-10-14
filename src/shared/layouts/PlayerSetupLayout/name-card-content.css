@@ -1,0 +1,8 @@
+.form-main{
+    display: flex;
+    justify-content: center;
+}
+
+.form-group{
+    align-self: center;
+}

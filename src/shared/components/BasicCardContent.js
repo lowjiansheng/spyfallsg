@@ -8,7 +8,7 @@ export const BasicCardContent = ({message, onClickCallbackFunction}) => {
     
     return (
         <CardContent height="100%" className={classes.root} onClick={onClickCallbackFunction}>
-            <Typography color="textSecondary" variant="body2">
+            <Typography color="textSecondary" className={classes.typographyAlign} variant="body2">
                 {message}
             </Typography>
         </CardContent>
@@ -17,6 +17,11 @@ export const BasicCardContent = ({message, onClickCallbackFunction}) => {
 
 const useStyles = makeStyles({
     root: {
-        height: "inherit"
+        flex: 1,
+        display: "flex",
+        justifyContent: "center"
     },
+    typographyAlign:{
+        alignSelf: "center"
+    }
 });

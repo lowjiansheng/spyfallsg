@@ -9,7 +9,7 @@ const GameSetupForm = ({startGame, numPlayers, numSpies, maxSpies, handleNumPlay
     return (
         <Form onSubmit={startGame}>
             <Form.Group>
-                <Form.Label>Num players: {numPlayers}</Form.Label>
+                <Form.Label>Number of players: {numPlayers}</Form.Label>
                     <Slider 
                         defaultValue={4}
                         value={numPlayers}

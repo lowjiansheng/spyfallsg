@@ -33,6 +33,10 @@ class HomePageView extends Component {
         })
     }
 
+    startMultiDeviceGameSetup(){
+        alert("Coming soon!");
+    }
+
     startGame(e) {
         e.preventDefault();
         if (this.state.numPlayers < 4 || this.state.numSpies < 1) {
@@ -76,7 +80,9 @@ class HomePageView extends Component {
     render() {
         switch(this.state.gameState) {
             case PAGE.HOME: 
-                return <HomePageLayout startGameSetup={this.startGameSetup}/>
+                return <HomePageLayout 
+                    startSingleDeviceGameSetup={this.startGameSetup}
+                    startMultiDeviceGameSetup={this.startMultiDeviceGameSetup}/>
             case PAGE.GAME_SETUP:
                 return <GameSetupLayout 
                 startGame={this.startGame} 

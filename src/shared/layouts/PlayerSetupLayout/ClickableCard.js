@@ -20,7 +20,7 @@ class ClickableCard extends Component {
             name: "",
             isDone: false,
             isFlipped: false,
-            isNameSetup: false
+            isNameSetup: true       // TODO: this will depend on whether this was a previous game
         }
         this.handleInitialCardClick = this.handleInitialCardClick.bind(this);
         this.handleNameCardChange = this.handleNameCardChange.bind(this);
@@ -76,8 +76,8 @@ class ClickableCard extends Component {
                 containerStyle={
                     {
                         margin: "5%",
-                        width: 150,
-                        height: 200,
+                        width: 250,
+                        height: 300
                     }
                 }>
                     <Card key="front" className={clsx(classes.root, className)} {...other}>
@@ -112,7 +112,9 @@ const clickableCardStyles = {
     root: {
         minHeight: "100%",
         minWidth: "100%",
-        display: "flex"
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column"
     }
 }
 
