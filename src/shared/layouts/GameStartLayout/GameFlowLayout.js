@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import gameState from '../../constants/gameStates';
-import CommunicateLayout from './CommunicateLayout';
+import CommunicateLayout from '../CommunicationLayout';
 import VotingLayout from '../VotingLayout';
 import { roundEndConclusion, stillHasSpiesInGame as stillHasSpiesInGame, removePlayerFromGame } from '../../../utils/GameLogic';
 import roundEndStates from '../../constants/roundEndStates';

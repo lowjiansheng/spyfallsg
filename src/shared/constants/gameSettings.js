@@ -1,5 +1,5 @@
 const gameSettings = {
-    CommunicationTime: 70
+    CommunicationTime: 5
 }
 
 export default gameSettings;
