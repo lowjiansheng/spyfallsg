@@ -5,8 +5,10 @@ import  LOCATIONS  from '../../constants/locations';
 import votingStates from '../../constants/votingStates';
 import { GenericSnackbar } from '../../components/Snackbar';
 
-const commonerButton = "commonerButton";
-const spyButton = "spyButton";
+import { PreVotingLayout } from './PreVotingLayout';
+import { SpyVotingLayout, spyButton } from './SpyVotingLayout';
+import { NormalPlayerVotingLayout, commonerButton } from './NormalPlayerVotingLayout';
+
 
 class VotingLayout extends Component {
     constructor(props){
@@ -76,58 +78,5 @@ class VotingLayout extends Component {
     }
 }
 
-const PreVotingLayout = ({ playerName, handlePreConfirmationButtonClick }) => {
-    return(
-        <div className="d-flex p2 align-self-center flex-column">
-            Hi {playerName}. Please click the button to continue.
-            <Button color="primary" onClick={handlePreConfirmationButtonClick}>Continue</Button>
-        </div>
 
-    )
-}
-
-const SpyVotingLayout = ({playerName, handleVotingButtonClick}) => {
-    return (
-        <div className="d-flex align-self-center flex-column">
-            <div className="p2">
-                Hi {playerName}. Choose the correct location.
-            </div>
-            <div className="p2">
-                {LOCATIONS.map(location => {
-                    return (
-                    <Button color="primary" onClick={handleVotingButtonClick} key={location} id={spyButton}>
-                        {location}
-                    </Button>)
-                })}
-            </div>
-        </div>
-    )
-}
-
-// Need to work on the button value.
-const NormalPlayerVotingLayout = ({players, playerIndex, handleVotingButtonClick}) => {
-    // Disclaimer page first
-    return (
-        <div className="d-flex align-self-center flex-column">
-            <div className="p2">
-                Hi {players[playerIndex]['name']}! Please vote for the spy.
-            </div>
-            <div className="p2">
-                {players.map(player => {
-                    // one does not vote for oneself
-                    if (player === players[playerIndex]) {
-                        return null;
-                    } else if (!player.inGame) {    // neither does one vote for one not in game
-                        return null;
-                    }
-                    else {
-                        return (<Button color="primary" key={player.id} onClick={handleVotingButtonClick} id={commonerButton} value={player.id}>
-                            {player['name']}
-                        </Button>)
-                    }
-                })}
-            </div>
-        </div>
-    )
-}
 export default VotingLayout;
