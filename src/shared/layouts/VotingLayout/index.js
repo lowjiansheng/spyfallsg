@@ -23,9 +23,14 @@ class VotingLayout extends Component {
             return null;
         }
         this.state = {
-            votingState: votingStates.PreConfirmation
+            votingState: votingStates.PreConfirmation,
+            showAlert: true,
         }
-        this.handleVotingButtonClick = this.handleVotingButtonClick.bind(this);
+        setInterval(() => {
+            this.setState({showAlert : false})
+        }, 3000); 
+
+        this.handleVotingButtonClick = this. handleVotingButtonClick.bind(this);
         this.handlePreConfirmationButtonClick = this.handlePreConfirmationButtonClick.bind(this);
     }
 
@@ -53,15 +58,15 @@ class VotingLayout extends Component {
                 votingState: votingStates.PreConfirmation,
             })
         }
-    
     }
 
     render() {
         switch (this.state.votingState) {
             case votingStates.PreConfirmation:
                 return <PreVotingLayout 
-                playerName={this.props.playersInGame[this.props.playerIndexToVote]['name']}
-                handlePreConfirmationButtonClick={this.handlePreConfirmationButtonClick}/>
+                    playerName={this.props.playersInGame[this.props.playerIndexToVote]['name']}
+                    handlePreConfirmationButtonClick={this.handlePreConfirmationButtonClick}
+                    showAlert={this.state.showAlert}/>;
 
             case votingStates.Selection:
                 if (this.props.playersInGame[this.props.playerIndexToVote].isSpy){
