@@ -4,10 +4,11 @@ import Slider from '@material-ui/core/Slider';
 import { Component } from 'react';
 import Button from '@material-ui/core/Button';
 
+import "./game-setup-form.css";
 
 const GameSetupForm = ({startGame, numPlayers, numSpies, maxSpies, handleNumPlayersChange, handleNumSpiesChange}) => {
     return (
-        <Form onSubmit={startGame}>
+        <Form onSubmit={startGame} className="form-size-inherit">
             <Form.Group>
                 <Form.Label>Number of players: {numPlayers}</Form.Label>
                     <Slider 

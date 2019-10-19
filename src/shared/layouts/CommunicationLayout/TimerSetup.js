@@ -1,11 +1,13 @@
 import React from 'react';
 import { Button, Slider } from '@material-ui/core';
 
+import "./timer-setup.css";
+
 export const TimerSetup = ( { onSliderChange, onStart, counterMinutes} ) => {
     return (
-        <div className="d-flex p2 flex-column align-self-center">
+        <div className="d-flex p2 flex-column align-self-center timer-setup-style">
             <div>
-                <h5>Time to communicate! How long do you want to set this round for?</h5>
+                <h5>Communication duration</h5>
             </div>
             <div className="d-flex align-self-center">
                 {counterMinutes} minutes
