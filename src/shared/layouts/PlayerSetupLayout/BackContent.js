@@ -7,6 +7,7 @@ export const BackContent = ({
     setupPlayerNames, 
     handleSubmitFunction, 
     handleChangeFunction, 
+    formValidated,
     nameValue, 
     handleLocationSpyRevealClick, 
     location, 
@@ -15,6 +16,7 @@ export const BackContent = ({
         return <NameCardContent
                 handleSubmitFunction={handleSubmitFunction}
                 handleChangeFunction={handleChangeFunction}
+                formValidated={formValidated}
                 nameValue={nameValue}/>
     } else {
         return <LocationSpyContent

@@ -13,16 +13,21 @@ const useStyles = makeStyles({
     }
 });
 
-export const NameCardContent = ({ handleSubmitFunction, handleChangeFunction, nameValue }) => {
+export const NameCardContent = ({ handleSubmitFunction, handleChangeFunction, formValidated, nameValue }) => {
     const classes = useStyles();
     return (
         <CardContent className={classes.root}>
-            <Form onSubmit={handleSubmitFunction} className="form-main">
-                <Form.Group controlId="formName" className="form-group">
+            <Form validated={formValidated} onSubmit={handleSubmitFunction} className="form-main">
+                <Form.Group className="form-group" controlId="validationCustom01">
                     <Typography >
                         <Form.Label>What's your name?</Form.Label>
                     </Typography>
-                    <Form.Control type="text" onChange={handleChangeFunction} value={nameValue}/>
+                    <Form.Control 
+                        type="text"
+                        onChange={handleChangeFunction} 
+                        value={nameValue} 
+                        required/>
+                    <Form.Control.Feedback type="invalid">Please input a name</Form.Control.Feedback>
                 </Form.Group>
                 <div className="d-flex justify-content-center">
                     <Button variant="contained" color="primary" type="submit">Continue</Button>

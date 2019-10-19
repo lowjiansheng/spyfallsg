@@ -20,7 +20,8 @@ class ClickableCard extends Component {
             name: "",
             isDone: false,
             isFlipped: false,
-            isNameSetup: true       // TODO: this will depend on whether this was a previous game
+            isNameSetup: true,       // TODO: this will depend on whether this was a previous game
+            formValidated: false,
         }
         this.handleInitialCardClick = this.handleInitialCardClick.bind(this);
         this.handleNameCardChange = this.handleNameCardChange.bind(this);
@@ -34,12 +35,20 @@ class ClickableCard extends Component {
 
     handleNameCardSubmit(event) {
         event.preventDefault();
-        // Name validation
-        if (this.state.name === "") {
-            return;
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.stopPropagation();
         }
+        // Name validation
+        /*
+        if (this.name === "") {
+            this.setState({isNameCardEmpty: true});
+            return;
+        }*/
+
         this.props.setPlayerName(this.props.playerIndex, this.state.name)
         this.setState({
+            formValidated: true,
             isNameSetup: false,
         })
     }
@@ -91,6 +100,7 @@ class ClickableCard extends Component {
                             setupPlayerNames={this.state.isNameSetup} // states
                             handleSubmitFunction={this.handleNameCardSubmit}
                             handleChangeFunction={this.handleNameCardChange}
+                            formValidated={this.state.formValidated}
                             nameValue={this.state.name}
                             handleLocationSpyRevealClick={this.handleLocationSpyRevealClick}
                             location={this.props.gameLocation}
