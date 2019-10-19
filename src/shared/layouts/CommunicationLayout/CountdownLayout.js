@@ -18,7 +18,7 @@ export const CountdownLayout = ({ counterSeconds, handleDecreaseTimer30s, handle
     return (
         <div className="d-flex p2 align-self-center flex-column">
             <div className="d-flex p2">
-                <h5>Find out who's the spy...</h5>
+                <h3 class="title-margin-bottom">Find out who's the spy</h3>
             </div>
             <div className="d-flex p2 justify-content-center">
                 <h3 class="timer-font">{firstDigitMinutes}{Math.floor(counterSeconds/60)} : {firstDigitSeconds}{counterSeconds%60}</h3>
