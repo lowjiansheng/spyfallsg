@@ -8,9 +8,9 @@ export const LocationSpyContent = ({handleLocationSpyRevealClick, location, isSp
 
     var displayContent;
     if (isSpy) { 
-        displayContent = <span>You are a Spy.</span>
+        displayContent = <span>You are a <b>Spy</b>.</span>
     } else {
-        displayContent = <span>The location is {location}.</span>
+        displayContent = <span>The location is <b>{location}</b>.</span>
     }
     return (
         <CardContent className={classes.cardContent}>
