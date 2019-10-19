@@ -4,7 +4,7 @@ import { GenericSnackbar } from '../../components/Snackbar';
 
 import SweetAlert from 'react-bootstrap-sweetalert';
 
-export const PreVotingLayout = ({ playerName, handlePreConfirmationButtonClick, showAlert }) => {
+export const PreVotingLayout = ({ playerName, handlePreConfirmationButtonClick, showAlert, hideAlertClick }) => {
     return(
         <div className="d-flex p2 align-self-center flex-column">
             <SweetAlert
@@ -12,7 +12,8 @@ export const PreVotingLayout = ({ playerName, handlePreConfirmationButtonClick, 
                 show = {showAlert}
                 onConfirm={
                     () => {return}
-                }>
+                }
+                onCancel={hideAlertClick}>
                     Start voting for the spy.
                 </SweetAlert>
             Hi {playerName}. Please click the button to continue.

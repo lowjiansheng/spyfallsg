@@ -3,6 +3,8 @@ import gameSettings from '../../constants/gameSettings';
 import { Slider } from '@material-ui/core';
 import communicationStates from '../../constants/communicationStates';
 import { TimerSetup } from './TimerSetup';
+import { CountdownLayout } from './CountdownLayout';
+
 
 class CommunicateLayout extends Component{
     constructor(props) {
@@ -15,6 +17,8 @@ class CommunicateLayout extends Component{
             communicationState: communicationStates.TimerSetup
         }
         this.handleSliderChange = this.handleSliderChange.bind(this);
+        this.handleDecreaseTimer30s = this.handleDecreaseTimer30s.bind(this);
+        this.handleIncreaseTimer30s = this.handleIncreaseTimer30s.bind(this);
         this.onTimerSetupSliderChange = this.onTimerSetupSliderChange.bind(this);
         this.onTimerSetupStartButtonClick = this.onTimerSetupStartButtonClick.bind(this);
     }
@@ -23,6 +27,24 @@ class CommunicateLayout extends Component{
         this.setState({counterSeconds : value})
     }
     
+    handleDecreaseTimer30s(){
+        var counterSecondsToSet = 600;
+        if ((this.state.counterSeconds - 30) < 0) {
+            counterSecondsToSet = 0;
+        } else {
+            counterSecondsToSet = this.state.counterSeconds - 30;
+        }
+        this.setState({
+            counterSeconds: counterSecondsToSet,
+        })
+    }
+
+    handleIncreaseTimer30s() {
+        this.setState({
+            counterSeconds: this.state.counterSeconds + 30,
+        })
+    }
+
     timer() {
         if (this.state.counterSeconds === 0) {
             this.props.communicationEnds();
@@ -62,21 +84,11 @@ class CommunicateLayout extends Component{
                 counterMinutes={this.state.counterMinutes}/>
             case communicationStates.Countdown:
                 return (
-                    <div className="d-flex p2 align-self-center flex-column">
-                        <div className="d-flex p2">
-                            <h5>Find out who's the spy...</h5>
-                        </div>
-                        <div className="d-flex p2 justify-content-center">
-                            <p>{Math.floor(this.state.counterSeconds/60)} min {this.state.counterSeconds%60} seconds left</p>
-                        </div>
-                        <div className="d-flex p2 justify-content-center">
-                            <Slider 
-                            value={this.state.counterSeconds} 
-                            onChange={this.handleSliderChange} 
-                            aria-labelledby="continuous-slider"
-                            max={600}/>
-                        </div>
-                </div>
+                    <CountdownLayout
+                        counterSeconds={this.state.counterSeconds}
+                        handleDecreaseTimer30s={this.handleDecreaseTimer30s}
+                        handleIncreaseTimer30s={this.handleIncreaseTimer30s}
+                        handleSliderChange={this.handleSliderChange}/>
                 );
         }
     }
