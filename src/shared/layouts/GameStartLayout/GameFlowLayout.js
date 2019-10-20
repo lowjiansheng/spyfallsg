@@ -78,40 +78,30 @@ class GameFlowLayout extends Component{
         console.log("Voting ended!");
         var {results, playerIndexEliminated} = roundEndConclusion(this.state.playersInGame, this.state.playerVotes);
         console.log(this.state.playerVotes);
-        switch (results) {
-            case roundEndStates.Tie:
-                alert("Tie round. No one was eliminated.");
-                this.resetRound();
-                this.setState({
-                    gameState: gameState.Communicate
-                })
-                break;
-            case roundEndStates.SpyEliminated:
-                // spy guessed correctly
-                if (this.state.playersInGame[playerIndexEliminated].spyChosenLocation === this.props.gameLocation) this.props.handleGameEnd(gameEndResults.SpyWinGuessedLocation);
-                else {
-                    // spy eliminated
-                    // TODO: make this more beautiful
+        // Spy guessed correctly
+        if (this.state.playersInGame[playerIndexEliminated].spyChosenLocation === this.props.gameLocation) this.props.handleGameEnd(gameEndResults.SpyWinGuessedLocation);
+        else {
+            switch (results) {
+                case roundEndStates.SpyEliminated:
                     alert(this.state.playersInGame[playerIndexEliminated].name + " is a spy!");
-                    var playersInGame = removePlayerFromGame(this.state.playersInGame, playerIndexEliminated);
-                    if (stillHasSpiesInGame(playersInGame)) {
-                        this.resetRound();
-                        this.setState({
-                            playersInGame: playersInGame
-                        });
-                    } else this.props.handleGameEnd(gameEndResults.CommonersWin);      // commoners win
-                } 
-                break;
-            case roundEndStates.CommonerEliminated:
-                alert(this.state.playersInGame[playerIndexEliminated].name + " has been wrongfully eliminated...");
-                 // Check if there are still commoners in game.
-                this.setState({
-                    playersInGame: removePlayerFromGame(this.state.playersInGame, playerIndexEliminated),
-                    gameState: gameState.Communicate
-                });
-                this.resetRound();
-                console.log("Playerindex = " + this.state.playerIndexToVote);
-                            
+                    this.props.handleGameEnd(gameEndResults.CommonersWin)
+                    break;
+                case roundEndStates.CommonerEliminated:
+                    alert(this.state.playersInGame[playerIndexEliminated].name + " has been wrongfully eliminated...");
+                    this.setState({
+                        playersInGame: removePlayerFromGame(this.state.playersInGame, playerIndexEliminated),
+                        gameState: gameState.Communicate
+                    });
+                    this.resetRound();
+                    break;
+                case roundEndStates.Tie:
+                    // TODO: a random commoner should be eliminated in the scenario of a tie round
+                    alert("Tie round. No one was eliminated.");
+                    this.resetRound();
+                    this.setState({
+                        gameState: gameState.Communicate
+                    })
+            }
         }
     }
 

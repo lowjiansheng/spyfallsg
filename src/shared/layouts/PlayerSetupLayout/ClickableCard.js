@@ -39,12 +39,6 @@ class ClickableCard extends Component {
         if (form.checkValidity() === false) {
             event.stopPropagation();
         }
-        // Name validation
-        /*
-        if (this.name === "") {
-            this.setState({isNameCardEmpty: true});
-            return;
-        }*/
 
         this.props.setPlayerName(this.props.playerIndex, this.state.name)
         this.setState({
