@@ -29,5 +29,5 @@ const selectSpies = (numPlayers, numSpies) => {
 
 
 const getGameLocation = () => {
-    return LOCATIONS[getRandomInt(LOCATIONS.length)];
+    return LOCATIONS[getRandomInt(LOCATIONS.length)].name;
 }

@@ -20,8 +20,9 @@ const GameSetupForm = ({startGame, numPlayers, numSpies, maxSpies, handleNumPlay
                         marks
                         min={4}
                         onChange={handleNumPlayersChange}
-                        max={14}/>
+                        max={10}/>
             </Form.Group>
+            
             <Form.Group>
                 <Form.Label>Number of Spies: {numSpies}</Form.Label>
                     <Slider
@@ -35,6 +36,7 @@ const GameSetupForm = ({startGame, numPlayers, numSpies, maxSpies, handleNumPlay
                         min={1}
                         max={maxSpies}/>
             </Form.Group>
+
             <Form.Group className="d-flex justify-content-center">
             <Button variant="contained" color="primary" type="submit">Start</Button>
             </Form.Group>

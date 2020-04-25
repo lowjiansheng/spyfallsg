@@ -12,16 +12,17 @@ export const SpyVotingLayout = ({playerName, handleVotingButtonClick}) => {
             <div className="p2 align-self-center">
                 Hi {playerName}. Choose the correct location.
             </div>
-            <div className="d-flex p2 flex-row justify-content-center">
+            <div className="d-flex p2 flex-wrap justify-content-center">
                 {LOCATIONS.map(location => {
                     return (
                     <Button 
                     variant="contained" 
                     color="primary" 
                     onClick={handleVotingButtonClick} 
-                    key={location} 
+                    key={location.name}
+                    value={location.name}
                     id={spyButton}>
-                        {location}
+                        {location.name}
                     </Button>)
                 })}
             </div>
