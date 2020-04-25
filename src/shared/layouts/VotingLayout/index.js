@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Button from '@material-ui/core/Button';
-import  LOCATIONS  from '../../constants/locations';
 import votingStates from '../../constants/votingStates';
 import { GenericSnackbar } from '../../components/Snackbar';
 
@@ -44,8 +43,10 @@ class VotingLayout extends Component {
     
     handleVotingButtonClick(e) {
         e.preventDefault();
+        console.log(e.currentTarget)
         switch(e.currentTarget.id) {
             case spyButton:
+                console.log("SPY HAS VOTED HERE")
                 this.props.handleSpyLocationChoice(e.currentTarget.value);
                 break;
             case commonerButton:

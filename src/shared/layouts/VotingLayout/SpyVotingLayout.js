@@ -19,9 +19,10 @@ export const SpyVotingLayout = ({playerName, handleVotingButtonClick}) => {
                     variant="contained" 
                     color="primary" 
                     onClick={handleVotingButtonClick} 
-                    key={location} 
+                    key={location.name}
+                    value={location.name}
                     id={spyButton}>
-                        {location}
+                        {location.name}
                     </Button>)
                 })}
             </div>

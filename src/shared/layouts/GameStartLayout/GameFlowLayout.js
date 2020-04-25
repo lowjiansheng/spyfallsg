@@ -78,8 +78,13 @@ class GameFlowLayout extends Component{
         console.log("Voting ended!");
         var {results, playerIndexEliminated} = roundEndConclusion(this.state.playersInGame, this.state.playerVotes);
         console.log(this.state.playerVotes);
+        console.log(this.state.playersInGame[playerIndexEliminated]);
+        console.log(this.props.gameLocation);
         // Spy guessed correctly
-        if (this.state.playersInGame[playerIndexEliminated].spyChosenLocation === this.props.gameLocation) this.props.handleGameEnd(gameEndResults.SpyWinGuessedLocation);
+        if (this.state.playersInGame[playerIndexEliminated].spyChosenLocation === this.props.gameLocation) {
+            this.props.handleGameEnd(gameEndResults.SpyWinGuessedLocation)
+            return;
+        }
         else {
             switch (results) {
                 case roundEndStates.SpyEliminated:
